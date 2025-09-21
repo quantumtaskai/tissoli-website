@@ -4,125 +4,693 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tissoli - Live Exclusive</title>
-    <meta name="description" content="Tissoli Luxury Developers - Creating timeless masterpieces where form becomes feeling. Live Exclusive.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #2c2c2c;
+            background-color: #ffffff;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid #e5e5e5;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #0A0A0A;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #2c2c2c;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #D4AF37;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background-image: url('images/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 300;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .btn-primary {
+            background-color: #D4AF37;
+            color: white;
+            border: 2px solid #D4AF37;
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: #D4AF37;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: white;
+            color: #0A0A0A;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            padding: 6rem 0;
+            background-color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .philosophy-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .philosophy-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: #0A0A0A;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .philosophy-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: #D4AF37;
+        }
+
+        .philosophy-text p {
+            font-size: 1.1rem;
+            color: #666666;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .philosophy-link {
+            color: #D4AF37;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .philosophy-image {
+            height: 500px;
+            background-image: url('images/discover-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 0;
+            background-color: #F8F8F8;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .about-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: #0A0A0A;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .about-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background-color: #D4AF37;
+        }
+
+        .about-header p {
+            font-size: 1.1rem;
+            color: #666666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .about-item {
+            text-align: center;
+            padding: 3rem 2rem;
+            background-color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .about-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .about-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .about-icon-1 {
+            background-image: url('images/product-4.jpg');
+        }
+
+        .about-icon-2 {
+            background-image: url('images/product-5.jpg');
+        }
+
+        .about-icon-3 {
+            background-image: url('images/product-6.jpg');
+        }
+
+        .about-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #0A0A0A;
+            margin-bottom: 1rem;
+        }
+
+        .about-item p {
+            color: #666666;
+            line-height: 1.6;
+        }
+
+        /* Life Imagined Section */
+        .life-imagined {
+            padding: 6rem 0;
+            background-color: white;
+        }
+
+        .life-imagined-content {
+            text-align: center;
+        }
+
+        .life-imagined h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: #0A0A0A;
+            margin-bottom: 2rem;
+        }
+
+        .life-imagined p {
+            font-size: 1.2rem;
+            color: #666666;
+            margin-bottom: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .life-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .life-item {
+            position: relative;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .life-item:hover {
+            transform: scale(1.05);
+        }
+
+        .life-item-1 {
+            background-image: url('images/works-1.jpg');
+        }
+
+        .life-item-2 {
+            background-image: url('images/works-2.jpg');
+        }
+
+        .life-item-3 {
+            background-image: url('images/works-3.jpg');
+        }
+
+        .life-item-4 {
+            background-image: url('images/arms-1.jpg');
+        }
+
+        .life-item h3 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 2rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        /* Flagship Section */
+        .flagship {
+            padding: 6rem 0;
+            background-color: #0A0A0A;
+            color: white;
+        }
+
+        .flagship-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .flagship-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .flagship-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: #D4AF37;
+        }
+
+        .flagship-text h3 {
+            font-size: 1.5rem;
+            color: #D4AF37;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .flagship-text p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .flagship-image {
+            height: 500px;
+            background-image: url('images/arms-2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Architecture Section */
+        .architecture {
+            padding: 6rem 0;
+            background-color: white;
+        }
+
+        .architecture-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .architecture-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: #0A0A0A;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .architecture-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background-color: #D4AF37;
+        }
+
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .architecture-item {
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .architecture-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .architecture-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .architecture-image-1 {
+            background-image: url('images/product-1.jpg');
+        }
+
+        .architecture-image-2 {
+            background-image: url('images/product-2.jpg');
+        }
+
+        .architecture-image-3 {
+            background-image: url('images/product-3.jpg');
+        }
+
+        .architecture-content {
+            padding: 2rem;
+        }
+
+        .article-date {
+            color: #D4AF37;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .architecture-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: #0A0A0A;
+            margin: 1rem 0;
+        }
+
+        .architecture-content p {
+            color: #666666;
+            margin-bottom: 1rem;
+        }
+
+        .article-link {
+            color: #D4AF37;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #0A0A0A;
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #D4AF37;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-bottom p {
+            opacity: 0.6;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .philosophy-content,
+            .flagship-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .philosophy-text h2::after,
+            .flagship-text h2::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .about-grid,
+            .life-grid,
+            .architecture-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-links {
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                display: block;
+                margin: 10px auto;
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="#home">TISSOLI</a>
-            </div>
-            <ul class="nav-menu" id="nav-menu">
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#philosophy" class="nav-link">Philosophy</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#projects" class="nav-link">Projects</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#commitments" class="nav-link">Commitments</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
-                </li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
+    <nav class="navbar">
+        <div class="nav-logo">TISSOLI</div>
+        <ul class="nav-menu">
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#philosophy" class="nav-link">Philosophy</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-background">
-            <div class="hero-image"></div>
-            <div class="hero-overlay"></div>
-        </div>
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="hero-title-line">There's a Place</span>
-                    <span class="hero-title-line">Beyond the Visible,</span>
-                    <span class="hero-title-line">Where Form Becomes Feeling</span>
-                </h1>
-                <p class="hero-subtitle">
-                    In every line drawn, in every space conceived, we seek more than structure—we seek soul
-                </p>
-                <div class="hero-cta">
-                    <a href="#philosophy" class="btn-primary">Live Exclusive</a>
-                    <a href="#projects" class="btn-secondary">Discover More</a>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="scroll-arrow"></div>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>There's a Place<br>Beyond the Visible,<br>Where Form Becomes Feeling</h1>
+            <p>In every line drawn, in every space conceived, we seek more than structure—we seek soul</p>
+            <a href="#philosophy" class="btn btn-primary">Live Exclusive</a>
+            <a href="#projects" class="btn btn-secondary">Discover More</a>
         </div>
     </section>
 
-    <!-- Brand Philosophy Section -->
+    <!-- Philosophy Section -->
     <section id="philosophy" class="philosophy">
-        <div class="philosophy-container">
+        <div class="container">
             <div class="philosophy-content">
                 <div class="philosophy-text">
-                    <h2 class="section-title">Live Exclusive</h2>
-                    <p class="philosophy-description">
-                        TISSOLI is a collaboration of the best minds in design, delivery and operation. 
-                        We aim to be the leading aspirational lifestyle and design brand, creating 
-                        world-class spaces where people can live life to the very best.
-                    </p>
-                    <p class="philosophy-description">
-                        We develop residences that help transform communities and symbolize modern living.
-                    </p>
-                    <a href="#about" class="philosophy-link">Our Approach</a>
+                    <h2>Live Exclusive</h2>
+                    <p>TISSOLI is a collaboration of the best minds in design, delivery and operation. We aim to be the leading aspirational lifestyle and design brand, creating world-class spaces where people can live life to the very best.</p>
+                    <p>We develop residences that help transform communities and symbolize modern living.</p>
+                    <a href="#about" class="philosophy-link">Our Approach →</a>
                 </div>
-                <div class="philosophy-visual">
-                    <div class="philosophy-image">
-                        <div class="image-placeholder philosophy-image-bg"></div>
-                    </div>
-                </div>
+                <div class="philosophy-image"></div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="about">
-        <div class="about-container">
+        <div class="container">
             <div class="about-header">
-                <h2 class="section-title">Deliver Timeless Masterpieces</h2>
-                <p class="section-subtitle">
-                    Our goal is to create vibrant communities where people and neighborhoods thrive. 
-                    Our actions are guided by a deep commitment to re-imagine the consumer experience.
-                </p>
+                <h2>Deliver Timeless Masterpieces</h2>
+                <p>Our goal is to create vibrant communities where people and neighborhoods thrive. Our actions are guided by a deep commitment to re-imagine the consumer experience.</p>
             </div>
             <div class="about-grid">
                 <div class="about-item">
-                    <div class="about-icon">
-                        <div class="icon-placeholder about-icon-1"></div>
-                    </div>
+                    <div class="about-icon about-icon-1"></div>
                     <h3>Capital Partnerships</h3>
                     <p>Tissoli forges its capital partnerships with a shared commitment to long-term value creation, aligning with visionary investors who believe in the transformative power of thoughtful design.</p>
                 </div>
                 <div class="about-item">
-                    <div class="about-icon">
-                        <div class="icon-placeholder about-icon-2"></div>
-                    </div>
+                    <div class="about-icon about-icon-2"></div>
                     <h3>Precision-Driven Design</h3>
                     <p>At Tissoli, design is a discipline of precision—where every line, proportion, and material is purposefully considered to evoke harmony, elegance, and intent.</p>
                 </div>
                 <div class="about-item">
-                    <div class="about-icon">
-                        <div class="icon-placeholder about-icon-3"></div>
-                    </div>
+                    <div class="about-icon about-icon-3"></div>
                     <h3>Deep-Value Investments</h3>
                     <p>Tissoli's investment philosophy is anchored in uncovering deep value—identifying rare opportunities where cultural relevance, architectural potential, and long-term appreciation converge.</p>
                 </div>
@@ -132,37 +700,21 @@
 
     <!-- Life Imagined Section -->
     <section class="life-imagined">
-        <div class="life-imagined-container">
+        <div class="container">
             <div class="life-imagined-content">
-                <h2 class="section-title">Life, Imagined by Tissoli</h2>
-                <p class="life-imagined-description">
-                    When we talk about residences, we are pretty clear where it should be! How you should be living there! 
-                    Some place with a great view. Some place with a lot of water. Some place you can touch the skies. 
-                    Some place you will be loved, pampered. Somewhere, Iconic.
-                </p>
-                <div class="life-imagined-grid">
-                    <div class="life-item">
-                        <div class="life-image">
-                            <div class="image-placeholder life-image-1"></div>
-                        </div>
+                <h2>Life, Imagined by Tissoli</h2>
+                <p>When we talk about residences, we are pretty clear where it should be! How you should be living there! Some place with a great view. Some place with a lot of water. Some place you can touch the skies. Some place you will be loved, pampered. Somewhere, Iconic.</p>
+                <div class="life-grid">
+                    <div class="life-item life-item-1">
                         <h3>Discover</h3>
                     </div>
-                    <div class="life-item">
-                        <div class="life-image">
-                            <div class="image-placeholder life-image-2"></div>
-                        </div>
+                    <div class="life-item life-item-2">
                         <h3>Indulge</h3>
                     </div>
-                    <div class="life-item">
-                        <div class="life-image">
-                            <div class="image-placeholder life-image-3"></div>
-                        </div>
+                    <div class="life-item life-item-3">
                         <h3>Admire</h3>
                     </div>
-                    <div class="life-item">
-                        <div class="life-image">
-                            <div class="image-placeholder life-image-4"></div>
-                        </div>
+                    <div class="life-item life-item-4">
                         <h3>Wander</h3>
                     </div>
                 </div>
@@ -172,48 +724,31 @@
 
     <!-- Flagship Project Section -->
     <section id="projects" class="flagship">
-        <div class="flagship-container">
+        <div class="container">
             <div class="flagship-content">
                 <div class="flagship-text">
-                    <h2 class="section-title">A Distinguished Branded Address</h2>
-                    <h3 class="flagship-subtitle">A Signature of Timeless Design</h3>
-                    <p class="flagship-description">
-                        Rising Soon at Al Marjan Island
-                    </p>
-                    <p class="flagship-details">
-                        Tissoli's flagship development embodies an unparalleled vision of magnificence, 
-                        seamlessly weaving together architecture, wellness, and sustainability into a 
-                        refined tapestry of sophisticated living.
-                    </p>
-                    <div class="flagship-cta">
-                        <a href="#contact" class="btn-primary">Register Interest</a>
-                        <a href="#contact" class="btn-secondary">Become Partner</a>
-                    </div>
+                    <h2>A Distinguished Branded Address</h2>
+                    <h3>A Signature of Timeless Design</h3>
+                    <p>Rising Soon at Al Marjan Island</p>
+                    <p>Tissoli's flagship development embodies an unparalleled vision of magnificence, seamlessly weaving together architecture, wellness, and sustainability into a refined tapestry of sophisticated living.</p>
+                    <a href="#contact" class="btn btn-primary">Register Interest</a>
+                    <a href="#contact" class="btn btn-secondary">Become Partner</a>
                 </div>
-                <div class="flagship-visual">
-                    <div class="flagship-image">
-                        <div class="image-placeholder flagship-image-bg"></div>
-                    </div>
-                </div>
+                <div class="flagship-image"></div>
             </div>
         </div>
     </section>
 
     <!-- Architecture of Thought Section -->
-    <section class="architecture-thought">
-        <div class="architecture-container">
+    <section class="architecture">
+        <div class="container">
             <div class="architecture-header">
-                <h2 class="section-title">The Architecture of Thought</h2>
-                <p class="section-subtitle">
-                    Discover reflections, provocations, and the deeper currents shaping our brand, 
-                    our industry, and the culture of luxury living.
-                </p>
+                <h2>The Architecture of Thought</h2>
+                <p>Discover reflections, provocations, and the deeper currents shaping our brand, our industry, and the culture of luxury living.</p>
             </div>
             <div class="architecture-grid">
                 <article class="architecture-item">
-                    <div class="architecture-image">
-                        <div class="image-placeholder architecture-image-1"></div>
-                    </div>
+                    <div class="architecture-image architecture-image-1"></div>
                     <div class="architecture-content">
                         <span class="article-date">May 15, 2025</span>
                         <h3>Tissoli Announces Intent to Partner with A New Era of Placemaking</h3>
@@ -222,9 +757,7 @@
                     </div>
                 </article>
                 <article class="architecture-item">
-                    <div class="architecture-image">
-                        <div class="image-placeholder architecture-image-2"></div>
-                    </div>
+                    <div class="architecture-image architecture-image-2"></div>
                     <div class="architecture-content">
                         <span class="article-date">February 10, 2025</span>
                         <h3>Tissoli Unveils Project Philosophy: Imagined by Tissoli</h3>
@@ -233,9 +766,7 @@
                     </div>
                 </article>
                 <article class="architecture-item">
-                    <div class="architecture-image">
-                        <div class="image-placeholder architecture-image-3"></div>
-                    </div>
+                    <div class="architecture-image architecture-image-3"></div>
                     <div class="architecture-content">
                         <span class="article-date">December 15, 2024</span>
                         <h3>Tissoli Unveils Brand Philosophy: Live Exclusive!</h3>
@@ -247,74 +778,9 @@
         </div>
     </section>
 
-    <!-- Commitments Section -->
-    <section id="commitments" class="commitments">
-        <div class="commitments-container">
-            <div class="commitments-content">
-                <h2 class="section-title">Our Commitments</h2>
-                <div class="commitments-grid">
-                    <div class="commitment-item">
-                        <h3>Sustainability</h3>
-                        <p>We are committed to creating environmentally conscious developments that respect and enhance the natural world while providing exceptional living experiences.</p>
-                    </div>
-                    <div class="commitment-item">
-                        <h3>Social Impact</h3>
-                        <p>Our developments are designed to foster vibrant communities, create meaningful employment opportunities, and contribute positively to the social fabric of the regions we serve.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="contact-container">
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h2 class="section-title">Begin Your Journey</h2>
-                    <p class="contact-description">
-                        Begin your journey with Tissoli. Our specialists are ready to guide you 
-                        through our collections and create something truly unique.
-                    </p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <h4>Visit Our Atelier</h4>
-                            <p>By appointment only</p>
-                        </div>
-                        <div class="contact-item">
-                            <h4>Consultations</h4>
-                            <p>Available worldwide</p>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <select id="interest" name="interest">
-                            <option value="">Area of Interest</option>
-                            <option value="investment">Investment Opportunities</option>
-                            <option value="residence">Residence Inquiry</option>
-                            <option value="partnership">Partnership</option>
-                            <option value="consultation">Design Consultation</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" placeholder="Your Message" rows="4"></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
+    <footer id="contact" class="footer">
+        <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
                     <h3>TISSOLI</h3>
@@ -326,7 +792,7 @@
                         <ul>
                             <li><a href="#about">About</a></li>
                             <li><a href="#philosophy">Philosophy</a></li>
-                            <li><a href="#commitments">Commitments</a></li>
+                            <li><a href="#projects">Projects</a></li>
                         </ul>
                     </div>
                     <div class="footer-section">
@@ -353,6 +819,32 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script>
+        // Simple smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
