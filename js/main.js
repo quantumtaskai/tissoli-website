@@ -1,4 +1,4 @@
-// Tissoli Website JavaScript
+// Tissoli Luxury Website JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile Navigation
@@ -61,9 +61,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const scrollIndicator = document.querySelector('.scroll-indicator');
     if (scrollIndicator) {
         scrollIndicator.addEventListener('click', function() {
-            const showcaseSection = document.querySelector('.showcase');
-            if (showcaseSection) {
-                const offsetTop = showcaseSection.offsetTop - 80;
+            const philosophySection = document.querySelector('#philosophy');
+            if (philosophySection) {
+                const offsetTop = philosophySection.offsetTop - 80;
                 
                 window.scrollTo({
                     top: offsetTop,
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, observerOptions);
 
     // Observe elements for animation
-    const animateElements = document.querySelectorAll('.showcase-item, .arms-item, .works-item, .contact-info, .contact-form');
+    const animateElements = document.querySelectorAll('.about-item, .life-item, .architecture-item, .commitment-item, .contact-info, .contact-form');
     animateElements.forEach(el => {
         observer.observe(el);
     });
@@ -109,17 +109,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // Simulate form submission (replace with actual form handling)
             console.log('Form submitted:', formObject);
             
-            // Show success message (you can replace this with a proper modal or notification)
-            alert('Thank you for your message! We will get back to you soon.');
+            // Show success message
+            showNotification('Thank you for your message! We will get back to you soon.', 'success');
             
             // Reset form
             this.reset();
         });
     }
 
-    // Add hover effects to showcase items
-    const showcaseItems = document.querySelectorAll('.showcase-item');
-    showcaseItems.forEach(item => {
+    // Add hover effects to interactive elements
+    const interactiveElements = document.querySelectorAll('.about-item, .life-item, .architecture-item, .commitment-item');
+    interactiveElements.forEach(item => {
         item.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-10px)';
         });
@@ -132,11 +132,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Parallax effect for hero section
     window.addEventListener('scroll', function() {
         const scrolled = window.pageYOffset;
-        const heroVisual = document.querySelector('.hero-visual');
+        const heroImage = document.querySelector('.hero-image');
         
-        if (heroVisual) {
+        if (heroImage) {
             const rate = scrolled * -0.5;
-            heroVisual.style.transform = `translateY(${rate}px)`;
+            heroImage.style.transform = `translateY(${rate}px)`;
         }
     });
 
@@ -164,17 +164,122 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('scroll', updateActiveNav);
 
-    // Loading animation for images (when actual images are added)
+    // Loading animation for images (only if no background image is set)
     const imageContainers = document.querySelectorAll('.image-placeholder');
     imageContainers.forEach(container => {
-        // Add a subtle loading animation
-        container.style.background = `
-            linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent),
-            ${container.style.background || 'linear-gradient(45deg, #e5e5e5, #d0d0d0)'}
-        `;
-        container.style.backgroundSize = '200px 100%, 100% 100%';
-        container.style.animation = 'shimmer 2s infinite';
+        // Skip containers that have specific image classes
+        if (container.classList.contains('about-icon-1') || 
+            container.classList.contains('about-icon-2') || 
+            container.classList.contains('about-icon-3') ||
+            container.classList.contains('life-image-1') || 
+            container.classList.contains('life-image-2') || 
+            container.classList.contains('life-image-3') || 
+            container.classList.contains('life-image-4') ||
+            container.classList.contains('philosophy-image-bg') ||
+            container.classList.contains('flagship-image-bg') ||
+            container.classList.contains('architecture-image-1') || 
+            container.classList.contains('architecture-image-2') || 
+            container.classList.contains('architecture-image-3')) {
+            return; // Skip this container
+        }
+        
+        // Check if the container already has a background image from CSS
+        const computedStyle = window.getComputedStyle(container);
+        const hasBackgroundImage = computedStyle.backgroundImage && 
+                                 computedStyle.backgroundImage !== 'none' && 
+                                 !computedStyle.backgroundImage.includes('linear-gradient');
+        
+        // Only add shimmer animation if no background image is set
+        if (!hasBackgroundImage) {
+            container.style.background = 'linear-gradient(45deg, #e5e5e5, #d0d0d0)';
+            container.style.backgroundSize = '200px 100%, 100% 100%';
+            container.style.animation = 'shimmer 2s infinite';
+        }
     });
+
+    // Add sophisticated button animations
+    const buttons = document.querySelectorAll('.btn-primary, .btn-secondary');
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+
+    // Add click handlers for philosophy and flagship links
+    const philosophyLink = document.querySelector('.philosophy-link');
+    if (philosophyLink) {
+        philosophyLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            const aboutSection = document.querySelector('#about');
+            if (aboutSection) {
+                const offsetTop = aboutSection.offsetTop - 80;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+
+    // Add sophisticated scroll-triggered animations
+    const scrollAnimations = document.querySelectorAll('.section-title, .philosophy-description, .life-imagined-description');
+    const scrollObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    scrollAnimations.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        scrollObserver.observe(el);
+    });
+
+    // Add notification system
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.textContent = message;
+        
+        // Style the notification
+        notification.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: ${type === 'success' ? '#4CAF50' : '#2196F3'};
+            color: white;
+            padding: 15px 20px;
+            border-radius: 4px;
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            font-family: var(--font-secondary);
+            font-weight: 500;
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Animate in
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        // Remove after 5 seconds
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 5000);
+    }
 
     // Add shimmer animation keyframes
     const style = document.createElement('style');
@@ -189,9 +294,10 @@ document.addEventListener('DOMContentLoaded', function() {
             transform: translateY(0);
         }
         
-        .showcase-item,
-        .arms-item,
-        .works-item,
+        .about-item,
+        .life-item,
+        .architecture-item,
+        .commitment-item,
         .contact-info,
         .contact-form {
             opacity: 0;
@@ -210,6 +316,30 @@ document.addEventListener('DOMContentLoaded', function() {
         body.menu-open {
             overflow: hidden;
         }
+
+        /* Enhanced button hover effects */
+        .btn-primary:hover,
+        .btn-secondary:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Life item hover effects */
+        .life-item:hover h3 {
+            transform: translateY(-10px);
+        }
+
+        .life-item h3 {
+            transition: transform 0.3s ease;
+        }
+
+        /* Architecture item hover effects */
+        .architecture-item:hover .architecture-image .image-placeholder {
+            transform: scale(1.1);
+        }
+
+        .architecture-image .image-placeholder {
+            transition: transform 0.5s ease;
+        }
     `;
     document.head.appendChild(style);
 
@@ -224,33 +354,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, 100);
 
-    // Add click handlers for discover link
-    const discoverLink = document.querySelector('.discover-link');
-    if (discoverLink) {
-        discoverLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            const armsSection = document.querySelector('#arms');
-            if (armsSection) {
-                const offsetTop = armsSection.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    }
-
-    // Add subtle animation to buttons
-    const buttons = document.querySelectorAll('.btn-primary, .btn-secondary');
-    buttons.forEach(button => {
-        button.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-2px)';
-        });
+    // Add sophisticated loading animation
+    window.addEventListener('load', function() {
+        document.body.classList.add('loaded');
         
-        button.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
+        // Trigger animations for elements already in view
+        const elementsInView = document.querySelectorAll('.about-item, .life-item, .architecture-item, .commitment-item');
+        elementsInView.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                el.classList.add('animate-in');
+            }
         });
     });
 
-    console.log('Tissoli website loaded successfully');
+    // Add sophisticated scroll progress indicator
+    const progressBar = document.createElement('div');
+    progressBar.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--color-accent), var(--color-gold));
+        z-index: 10001;
+        transition: width 0.1s ease;
+    `;
+    document.body.appendChild(progressBar);
+
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
+    });
+
+    console.log('Tissoli luxury website loaded successfully');
 });
